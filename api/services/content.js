@@ -6,13 +6,13 @@ class ContentService {
     this.mongoDB = new MongoLib();
   }
 
-  async getContent({ tags }) {
+  async getAllContent({ tags }) {
     const query = tags && { tags: { $in: tags } };
     const content = await this.mongoDB.getAll(this.collection, query);
     return content || [];
   }
 
-  async getContent({ contentId }) {
+  async getOnePost({ contentId }) {
     const content = await this.mongoDB.get(this.collection, contentId);
     return content || {};
   }

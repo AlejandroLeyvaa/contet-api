@@ -17,9 +17,10 @@ function contentApi(app) {
 
   router.get('/', async function(req, res, next) {
     const { tags } = req.query;
-    try {
-      const content = await contentService.getContent({ tags });
 
+
+    try {
+      const content = await contentService.getAllContent({ tags });
       res.status(200).json({
         data: content,
         message: 'content listed'
@@ -29,7 +30,7 @@ function contentApi(app) {
     }
   });
 
-  router.post('/', validationHandler(createPostSchema), async function(
+  router.post('/', /*validationHandler(createPostSchema),*/ async function(
     req,
     res,
     next

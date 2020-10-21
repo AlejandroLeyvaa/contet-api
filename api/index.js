@@ -1,11 +1,27 @@
 const express = require('express');
-const app = express();
+const cors = require('cors');
 
-const contentApi = require('./routes/content')
+const app = express();
+const contentApi = require('./routes/content');
+
+const {
+  logErrors,
+  wrapErrors,
+  errorHandler
+} = require('./utils/middleware/errorHandlers.js');
+
+const notFoundHandler = require('./utils/middleware/notFoundHandler');
 
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cors());
 
 contentApi(app);
+
+app.use(logErrors);
+app.use(wrapErrors);
+app.use(errorHandler);
+app.use(notFoundHandler);
 
 app.listen(3000, () => {
   console.log('Listen on http://localhost:3000');
