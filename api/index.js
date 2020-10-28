@@ -3,6 +3,8 @@ const cors = require('cors');
 
 const app = express();
 const contentApi = require('./routes/content');
+const productsApi = require('./routes/products');
+const authApi = require('./routes/auth');
 
 const {
   logErrors,
@@ -16,7 +18,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cors());
 
+authApi(app);
 contentApi(app);
+productsApi(app);
 
 app.use(logErrors);
 app.use(wrapErrors);
